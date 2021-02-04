@@ -21,11 +21,15 @@ import io.netty.util.CharsetUtil;
 
 /**
  * Web Socket text frame.
+ * <p>
+ * Web套接字文本框架。
  */
 public class TextWebSocketFrame extends WebSocketFrame {
 
     /**
      * Creates a new empty text frame.
+     * <p>
+     * 创建一个新的空文本帧
      */
     public TextWebSocketFrame() {
         super(Unpooled.buffer(0));
@@ -33,9 +37,10 @@ public class TextWebSocketFrame extends WebSocketFrame {
 
     /**
      * Creates a new text frame with the specified text string. The final fragment flag is set to true.
+     * <p>
+     * 用指定的文本字符串创建一个新的文本帧。最终片段标志设置为true。
      *
-     * @param text
-     *            String to put in the frame.
+     * @param text String to put in the frame. 要放入帧中的字符串。
      */
     public TextWebSocketFrame(String text) {
         super(fromText(text));
@@ -44,8 +49,7 @@ public class TextWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new text frame with the specified binary data. The final fragment flag is set to true.
      *
-     * @param binaryData
-     *            the content of the frame.
+     * @param binaryData the content of the frame.
      */
     public TextWebSocketFrame(ByteBuf binaryData) {
         super(binaryData);
@@ -54,12 +58,9 @@ public class TextWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new text frame with the specified text string. The final fragment flag is set to true.
      *
-     * @param finalFragment
-     *            flag indicating if this frame is the final fragment
-     * @param rsv
-     *            reserved bits used for protocol extensions
-     * @param text
-     *            String to put in the frame.
+     * @param finalFragment flag indicating if this frame is the final fragment
+     * @param rsv           reserved bits used for protocol extensions
+     * @param text          String to put in the frame.
      */
     public TextWebSocketFrame(boolean finalFragment, int rsv, String text) {
         super(finalFragment, rsv, fromText(text));
@@ -76,12 +77,9 @@ public class TextWebSocketFrame extends WebSocketFrame {
     /**
      * Creates a new text frame with the specified binary data and the final fragment flag.
      *
-     * @param finalFragment
-     *            flag indicating if this frame is the final fragment
-     * @param rsv
-     *            reserved bits used for protocol extensions
-     * @param binaryData
-     *            the content of the frame.
+     * @param finalFragment flag indicating if this frame is the final fragment
+     * @param rsv           reserved bits used for protocol extensions
+     * @param binaryData    the content of the frame.
      */
     public TextWebSocketFrame(boolean finalFragment, int rsv, ByteBuf binaryData) {
         super(finalFragment, rsv, binaryData);
@@ -89,6 +87,8 @@ public class TextWebSocketFrame extends WebSocketFrame {
 
     /**
      * Returns the text data in this frame.
+     * <p>
+     * 返回此帧中的文本数据。
      */
     public String text() {
         return content().toString(CharsetUtil.UTF_8);

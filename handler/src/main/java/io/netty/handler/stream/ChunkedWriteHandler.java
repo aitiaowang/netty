@@ -42,8 +42,15 @@ import java.util.Queue;
  * implementation.  {@link ChunkedWriteHandler} manages such complicated states
  * so that you can send a large data stream without difficulties.
  * <p>
+ * 一个{@link ChannelHandler}，增加了对异步写入大型数据流的支持，既不花费大量内存也不获取{@link OutOfMemoryError}。
+ * 诸如文件传输之类的大数据流需要在{@link ChannelHandler}实现中进行复杂的状态管理。
+ * {@link ChunkedWriteHandler}管理着如此复杂的状态，因此您可以毫无困难地发送大数据流。
+ *
+ * <p>
  * To use {@link ChunkedWriteHandler} in your application, you have to insert
  * a new {@link ChunkedWriteHandler} instance:
+ * <p>
+ * 要在您的应用程序中使用{@link ChunkedWriteHandler}，您必须插入一个新的{@link ChunkedWriteHandler}实例：
  * <pre>
  * {@link ChannelPipeline} p = ...;
  * p.addLast("streamer", <b>new {@link ChunkedWriteHandler}()</b>);
@@ -52,13 +59,16 @@ import java.util.Queue;
  * Once inserted, you can write a {@link ChunkedInput} so that the
  * {@link ChunkedWriteHandler} can pick it up and fetch the content of the
  * stream chunk by chunk and write the fetched chunk downstream:
+ * <p>
+ * 插入后，您可以编写一个{@link ChunkedInput}，
+ * 以便{@link ChunkedWriteHandler}可以拾取它并逐块获取流块的内容，然后将获取的块写入下游：
  * <pre>
  * {@link Channel} ch = ...;
  * ch.write(new {@link ChunkedFile}(new File("video.mkv"));
  * </pre>
  *
  * <h3>Sending a stream which generates a chunk intermittently</h3>
- *
+ * <p>
  * Some {@link ChunkedInput} generates a chunk on a certain event or timing.
  * Such {@link ChunkedInput} implementation often returns {@code null} on
  * {@link ChunkedInput#readChunk(ChannelHandlerContext)}, resulting in the indefinitely suspended
@@ -68,7 +78,7 @@ import java.util.Queue;
 public class ChunkedWriteHandler extends ChannelDuplexHandler {
 
     private static final InternalLogger logger =
-        InternalLoggerFactory.getInstance(ChunkedWriteHandler.class);
+            InternalLoggerFactory.getInstance(ChunkedWriteHandler.class);
 
     private final Queue<PendingWrite> queue = new ArrayDeque<PendingWrite>();
     private volatile ChannelHandlerContext ctx;
@@ -148,7 +158,7 @@ public class ChunkedWriteHandler extends ChannelDuplexHandler {
     }
 
     private void discard(Throwable cause) {
-        for (;;) {
+        for (; ; ) {
             PendingWrite currentWrite = queue.poll();
 
             if (currentWrite == null) {

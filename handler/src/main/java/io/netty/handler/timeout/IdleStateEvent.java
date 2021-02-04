@@ -21,6 +21,8 @@ import io.netty.util.internal.StringUtil;
 
 /**
  * A user event triggered by {@link IdleStateHandler} when a {@link Channel} is idle.
+ * <p>
+ * {@link Channel}空闲时，由{@link IdleStateHandler}触发的用户事件
  */
 public class IdleStateEvent {
     public static final IdleStateEvent FIRST_READER_IDLE_STATE_EVENT =

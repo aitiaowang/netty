@@ -24,6 +24,8 @@ public interface ByteBufHolder extends ReferenceCounted {
 
     /**
      * Return the data which is held by this {@link ByteBufHolder}.
+     * <p>
+     * 返回此{@link ByteBufHolder}保留的数据。
      */
     ByteBuf content();
 

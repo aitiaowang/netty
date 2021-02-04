@@ -519,6 +519,9 @@ public final class Unpooled {
      * {@code writerIndex} are {@code 0} and the sum of all buffers'
      * {@code remaining} respectively.
      *
+     * 创建一个新缓冲区，其内容是指定{@code buffers}'切片的合并副本。
+     * 新缓冲区的{@code readerIndex}和{@code writerIndex}分别是{@code 0}和所有缓冲区的{@code剩余}的总和。
+     *
      * @throws IllegalArgumentException
      *         if the specified buffers' endianness are different from each
      *         other

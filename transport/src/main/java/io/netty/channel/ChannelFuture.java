@@ -26,11 +26,16 @@ import java.util.concurrent.TimeUnit;
 /**
  * The result of an asynchronous {@link Channel} I/O operation.
  * <p>
+ * 异步{@link Channel} IO操作的结果。
+ * <p>
  * All I/O operations in Netty are asynchronous.  It means any I/O calls will
  * return immediately with no guarantee that the requested I/O operation has
  * been completed at the end of the call.  Instead, you will be returned with
  * a {@link ChannelFuture} instance which gives you the information about the
  * result or status of the I/O operation.
+ * <p>
+ * Netty中的所有IO操作都是异步的。这意味着任何IO调用都将立即返回，而不能保证所请求的IO操作在调用结束时已完成。
+ * 相反，您将返回一个{@link ChannelFuture}实例，该实例为您提供有关IO操作的结果或状态的信息。
  * <p>
  * A {@link ChannelFuture} is either <em>uncompleted</em> or <em>completed</em>.
  * When an I/O operation begins, a new future object is created.  The new future
@@ -40,6 +45,11 @@ import java.util.concurrent.TimeUnit;
  * marked as completed with more specific information, such as the cause of the
  * failure.  Please note that even failure and cancellation belong to the
  * completed state.
+ * <p>
+ * {@link ChannelFuture}是<em>未完成的<em>或<em>已完成的<em>。
+ * IO操作开始时，将创建一个新的将来对象。新的future最初未完成-因为IO操作尚未完成，
+ * 所以既不会成功，失败也不会取消。如果IO操作成功完成，发生故障或通过取消而完成，
+ * 则将来将标记为已完成，其中包含更多特定信息，例如失败原因。请注意，即使失败和取消也属于完成状态。
  * <pre>
  *                                      +---------------------------+
  *                                      | Completed successfully    |
@@ -58,14 +68,17 @@ import java.util.concurrent.TimeUnit;
  *                                      | isCancelled() = true      |
  *                                      +---------------------------+
  * </pre>
- *
+ * <p>
  * Various methods are provided to let you check if the I/O operation has been
  * completed, wait for the completion, and retrieve the result of the I/O
  * operation. It also allows you to add {@link ChannelFutureListener}s so you
  * can get notified when the I/O operation is completed.
+ * <p>
+ * 提供了多种方法，可让您检查IO操作是否已完成，等待完成以及检索IO操作的结果。
+ * 它还允许您添加{@link ChannelFutureListener}，以便在IO操作完成时得到通知。
  *
  * <h3>Prefer {@link #addListener(GenericFutureListener)} to {@link #await()}</h3>
- *
+ * <p>
  * It is recommended to prefer {@link #addListener(GenericFutureListener)} to
  * {@link #await()} wherever possible to get notified when an I/O operation is
  * done and to do any follow-up tasks.
@@ -121,7 +134,7 @@ import java.util.concurrent.TimeUnit;
  * {@link BlockingOperationException} will be raised to prevent a dead lock.
  *
  * <h3>Do not confuse I/O timeout and await timeout</h3>
- *
+ * <p>
  * The timeout value you specify with {@link #await(long)},
  * {@link #await(long, TimeUnit)}, {@link #awaitUninterruptibly(long)}, or
  * {@link #awaitUninterruptibly(long, TimeUnit)} are not related with I/O
@@ -167,6 +180,8 @@ public interface ChannelFuture extends Future<Void> {
     /**
      * Returns a channel where the I/O operation associated with this
      * future takes place.
+     * <p>
+     * 返回与此未来关联的IO操作发生的通道。
      */
     Channel channel();
 
